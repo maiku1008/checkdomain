@@ -19,4 +19,5 @@ Credentials are available, and also [documentation](https://test.api.altravia.co
 
 ## Some questions.
 - Access to Altravia srl's API is available, but what about funds? how can we add some to our account/user?
+Funds are available and test api has a "fake" account that can be used.
 ...
