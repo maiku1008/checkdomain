@@ -11,14 +11,24 @@ func TestMakeAuthString(t *testing.T) {
     user := "foo"
     apikey := "bar"
 
-    // echo -n foo:bar | base64
-    // Zm9vOmJhcg==
     assert.Equal(MakeAuthString(user, apikey), "Basic Zm9vOmJhcg==")
 }
 
 // Fix this with Mocks!
-func TestRequestOauthTokens(t *testing.T) {
+func TestRequest(t *testing.T) {
     assert := assert.New(t)
 
+    //     {
+    //     "scopes": [
+    //         "POST:test.domains.altravia.com\/domain",
+    //         "POST:test.domains.altravia.com\/contact",
+    //         "GET:test.domains.altravia.com\/check"
+    //     ],
+    //     "expire": 1599073035,
+    //     "token": "5d6eb78bed92ef09cb60699a",
+    //     "success": true,
+    //     "message": "",
+    //     "error": null
+    // }
     assert.True(false)
 }

@@ -9,25 +9,30 @@ import (
     "net/http"
 )
 
-// MakeAuthString encodes user and apikey into base64
+// MakeAuthString creates authentication string
 func MakeAuthString(user, apikey string) string {
     credentials := fmt.Sprintf("%s:%s", user, apikey)
     encoded := base64.StdEncoding.EncodeToString([]byte(credentials))
     return fmt.Sprintf("Basic %s", encoded)
 }
 
-// RequestOauthTokens requests oauth tokens for scopes
-func RequestOauthTokens(tokenEndPoint, authString string) string {
+// Response defines the structure of the response
+type Response struct {
+    Expire  int    `json:"expire"`
+    Token   string `json:"token"`
+    Success bool   `json:"success"`
+    Credit  string `json:"credit"`
+    Message string `json:"message"`
+    Error   int    `json:"error"`
+}
 
-    // Let's not hardcode these
-    var jsonStr = []byte(`{"scopes":[
-        "POST:test.domains.altravia.com/domain",
-        "GET:test.domains.altravia.com/check",
-        "POST:test.domains.altravia.com/contact"
-        ]}`)
+// Request makes a request with the necessary params
+func Request(method, endpoint, authstring, jsonBody string) Response {
 
-    req, err := http.NewRequest("POST", tokenEndPoint, bytes.NewBuffer(jsonStr))
-    req.Header.Set("Authorization", authString)
+    var jsonStr = []byte(jsonBody)
+
+    req, err := http.NewRequest(method, endpoint, bytes.NewBuffer(jsonStr))
+    req.Header.Set("Authorization", authstring)
     req.Header.Set("Content-Type", "application/json")
     req.Header.Set("cache-control", "no-cache")
 
@@ -40,23 +45,14 @@ func RequestOauthTokens(tokenEndPoint, authString string) string {
 
     body, _ := ioutil.ReadAll(resp.Body)
 
-    var response RequestOauthTokenResponse
+    var response Response
     err = json.Unmarshal(body, &response)
     if err != nil {
         fmt.Println(err)
     }
 
     fmt.Println("response Status:", resp.Status)
-    // fmt.Println("response Headers:", resp.Header)
-    // fmt.Println("response Body:", string(body))
-    fmt.Println("Token:", response.Token)
+    fmt.Println("response Message:", response.Message)
 
-    return response.Token
-}
-
-// RequestOauthTokenResponse defines the structure of the response
-type RequestOauthTokenResponse struct {
-    Expire  int    `json:"expire"`
-    Token   string `json:"token"`
-    Success bool   `json:"success"`
+    return response
 }

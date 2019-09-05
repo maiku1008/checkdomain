@@ -16,3 +16,6 @@
 
 # Text files
 *.txt
+
+# Private files
+private.go
