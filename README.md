@@ -16,3 +16,11 @@ Credentials are available, and also [documentation](https://test.api.altravia.co
 - We should run it responsibly, without spamming Altravia srl's api.
 - The application should be written in Go, with TDD approach.
 - Deadline for a working product is 10th of September 2019.
+
+## Run
+
+```
+cd ./cmd/checkdomain
+go build
+./checkdomain -d example.it
+```
