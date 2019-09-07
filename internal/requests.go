@@ -26,18 +26,27 @@ type Response struct {
     Error   int    `json:"error"`
 }
 
-// Request makes a request with the necessary params
-func Request(method, endpoint, authstring, jsonBody string) Response {
+// SetRequest makes a request with the necessary params
+func SetRequest(method, endpoint, authstring, jsonBody string) *http.Request {
 
     var jsonStr = []byte(jsonBody)
 
     req, err := http.NewRequest(method, endpoint, bytes.NewBuffer(jsonStr))
+    if err != nil {
+        fmt.Println(err)
+    }
     req.Header.Set("Authorization", authstring)
     req.Header.Set("Content-Type", "application/json")
     req.Header.Set("cache-control", "no-cache")
 
-    client := &http.Client{}
-    resp, err := client.Do(req)
+    return req
+
+}
+
+// GetResponse gets a response
+func GetResponse(req *http.Request, c ClientInterface) Response {
+
+    resp, err := c.Do(req)
     if err != nil {
         fmt.Println(err)
     }
@@ -50,9 +59,6 @@ func Request(method, endpoint, authstring, jsonBody string) Response {
     if err != nil {
         fmt.Println(err)
     }
-
-    fmt.Println("response Status:", resp.Status)
-    fmt.Println("response Message:", response.Message)
 
     return response
 }

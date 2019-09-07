@@ -3,7 +3,7 @@ Play around with Altravia srl Test API for fun but also for profit
 
 ## The Problem
 We want to have a small, fast program that:
-- Checks for availability of a italian internet domain.
+- Checks for purchase availability of an italian internet domain.
 - If the domain is available, purchase it.
 
 We want to run this program as a scheduled task, for example as a cronjob on a Linux server,
@@ -16,8 +16,3 @@ Credentials are available, and also [documentation](https://test.api.altravia.co
 - We should run it responsibly, without spamming Altravia srl's api.
 - The application should be written in Go, with TDD approach.
 - Deadline for a working product is 10th of September 2019.
-
-## Some questions.
-- Access to Altravia srl's API is available, but what about funds? how can we add some to our account/user?
-Funds are available and test api has a "fake" account that can be used.
-...
