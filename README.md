@@ -17,7 +17,7 @@ Credentials are available, and also [documentation](https://test.api.altravia.co
 - The application should be written in Go, with TDD approach.
 - Deadline for a working product is 10th of September 2019.
 
-## How to Run
+## Requirements
 
 Obtain API credentials, and store them in an `internal/.env` file:
 
@@ -26,12 +26,21 @@ APIKEY=759827398275345345FDGSRTHSRTH5345345345DGDFGDFGDFG
 USERNAME=john@gopher.com
 ```
 
-Check `internal/request_data.go` for validity of information. # TODO: Find way to do this better.
+Check `internal/request_data.go` for validity of information.
 
-Run with:
+## Install
 
 ```
-cd ./cmd/checkdomain
-go build
-./checkdomain -d example.it
+go install github.com/sk1u/checkdomain/cmd/checkdomain
+```
+
+## Run
+```
+checkdomain
+checkdomain -d example.it
+```
+
+## Test
+```
+go test -v ./internal
 ```
